@@ -1,24 +1,22 @@
 import asyncpg
 from app.config import settings
+import logging
 
-async def get_timeseries_data(well_table: str, start_ms: int, end_ms: int):
-    start_s = start_ms / 1000
-    end_s = end_ms / 1000
+# Create a global connection pool
+pool = None
 
-    conn = await asyncpg.connect(
-        user=settings.TIMESCALE_USER,
-        password=settings.TIMESCALE_PASSWORD,
-        database=settings.TIMESCALE_DB,
-        host=settings.TIMESCALE_HOST,
-        port=int(settings.TIMESCALE_PORT),
-    )
-
-    query = f"""
-        SELECT timestamp, oil_rate, pressure, temperature
-        FROM "{well_table}"
-        WHERE timestamp BETWEEN to_timestamp($1) AND to_timestamp($2)
-        ORDER BY timestamp;
-    """
-    rows = await conn.fetch(query, start_s, end_s)
-    await conn.close()
-    return [dict(row) for row in rows]
+async def init_db_pool():
+    global pool
+    try:
+        pool = await asyncpg.create_pool(
+            user=settings.POSTGRES_USER,
+            password=settings.POSTGRES_PASSWORD,
+            database=settings.POSTGRES_DB,
+            host=settings.POSTGRES_HOST,
+            port=int(settings.POSTGRES_PORT),
+            min_size=1,
+            max_size=10
+        )
+        logging.info("Connection pool initialized successfully.")
+    except Exception as e:
+        logging.error(f"Failed to initialize connection pool: {e}")
