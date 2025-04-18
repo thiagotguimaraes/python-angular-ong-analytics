@@ -9,6 +9,8 @@ services:
     depends_on:
       - db
       - timescaledb
+    volumes:
+      - .:/app
 
   db:
     image: postgres:14

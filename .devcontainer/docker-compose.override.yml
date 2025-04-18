@@ -1,7 +1,0 @@
-version: '3.8'
-
-services:
-  backend:
-    volumes:
-      - ..:/app:cached
-    command: sleep infinity  # override FastAPI run to allow manual control
