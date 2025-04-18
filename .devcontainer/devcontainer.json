@@ -2,7 +2,6 @@
     "name": "FastAPI Angular Fullstack Dev",
     "dockerComposeFile": [
       "../docker-compose.yml"
-      // "docker-compose.override.yml"
     ],
     "service": "backend",
     "workspaceFolder": "/app",
@@ -19,7 +18,6 @@
             ]
         }
     },
-    "postCreateCommand": "pip install --no-cache-dir -r requirements.txt && pip install --no-cache-dir -r requirements-dev.txt",
     "remoteUser": "root"
   }
   
