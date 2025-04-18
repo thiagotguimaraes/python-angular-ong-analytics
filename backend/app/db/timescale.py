@@ -1,7 +1,10 @@
 import asyncpg
 from app.config import settings
 
-async def get_timeseries_data(well_table: str, start: str, end: str):
+async def get_timeseries_data(well_table: str, start_ms: int, end_ms: int):
+    start_s = start_ms / 1000
+    end_s = end_ms / 1000
+
     conn = await asyncpg.connect(
         user=settings.TIMESCALE_USER,
         password=settings.TIMESCALE_PASSWORD,
@@ -13,9 +16,9 @@ async def get_timeseries_data(well_table: str, start: str, end: str):
     query = f"""
         SELECT timestamp, oil_rate, pressure, temperature
         FROM "{well_table}"
-        WHERE timestamp BETWEEN $1 AND $2
+        WHERE timestamp BETWEEN to_timestamp($1) AND to_timestamp($2)
         ORDER BY timestamp;
     """
-    rows = await conn.fetch(query, start, end)
+    rows = await conn.fetch(query, start_s, end_s)
     await conn.close()
     return [dict(row) for row in rows]

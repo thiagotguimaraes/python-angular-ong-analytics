@@ -11,8 +11,6 @@ async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
         db = SessionLocal()
-        await initialize_database(db)
-
+        # await initialize_database(db)
 
 app.include_router(router)
-print('hello')
