@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProductionPoint } from '../../../models';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+  productionData: ProductionPoint[] = [];
 
+  onDataFetched(data: ProductionPoint[]) {
+    this.productionData = data;
+  }
 }

@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Well {
-  name: string;
-  collection: string;
-  latitude: number;
-  longitude: number;
-  id: number;
-}
+import { ProductionPoint, Well } from '../../../models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +14,15 @@ export class DashboardDataService {
   getWells(): Observable<Well[]> {
     return this.http.get<Well[]>(`${this.apiUrl}/wells`);
   }
+
+  getProductionData(collection: string, start_ms: number, end_ms: number): Observable<ProductionPoint[]> {
+    return this.http.get<ProductionPoint[]>(`${this.apiUrl}/data`, {
+      params: {
+        well: collection,
+        start_ms,
+        end_ms
+      }
+    });
+  }
+  
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ProductionPoint } from '../../../../models';
 
 @Component({
   standalone: false,
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './table-widget.component.scss'
 })
 export class TableWidgetComponent {
-
+  @Input() data: ProductionPoint[] = [];
 }

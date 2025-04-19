@@ -1,10 +1,10 @@
 <mat-drawer-container class="drawer-container">
   <mat-drawer mode="side" opened>
-    <form [formGroup]="filterForm">
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Well Name</mat-label>
-        <mat-select formControlName="wellName">
-          <mat-option *ngFor="let well of wells" [value]="well">
+        <mat-select formControlName="collection">
+          <mat-option *ngFor="let well of wells" [value]="well.collection">
             {{ well.name }}
           </mat-option>
         </mat-select>
@@ -25,6 +25,7 @@
       </mat-form-field>
 
       <button mat-raised-button color="primary" type="submit">Apply</button>
+
     </form>
   </mat-drawer>
 
