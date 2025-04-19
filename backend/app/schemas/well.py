@@ -3,6 +3,7 @@ from typing import List
 
 class WellBase(BaseModel):
     name: str
+    collection: str
     latitude: float
     longitude: float
 
