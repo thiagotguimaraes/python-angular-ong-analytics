@@ -15,6 +15,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule  } from '@angular/material/sidenav';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 const routes: Routes = [
@@ -40,11 +42,12 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
+    MatTableModule,
     MatSidenavModule,
     ReactiveFormsModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
-    }),    
+    }),
   ],
 })
 export class DashboardModule {}
