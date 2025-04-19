@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DashboardDataService, Well } from '../../services/dashboard-data.service';
 
 @Component({
   standalone: false,
@@ -9,9 +10,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class FilterDrawerComponent implements OnInit {
   filterForm!: FormGroup;
-  wells: string[] = ['Well A', 'Well B', 'Well C']; // will come from backend later
+  wells: Well[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private dataService: DashboardDataService
+  ) {}
 
   ngOnInit(): void {
     this.filterForm = this.fb.group({
@@ -19,10 +23,15 @@ export class FilterDrawerComponent implements OnInit {
       startDate: [null],
       endDate: [null]
     });
+
+    this.dataService.getWells().subscribe((wells) => {
+      console.log('wells:', wells);
+      
+      this.wells = wells;
+    });
   }
 
   onSubmit() {
     console.log('Form Values:', this.filterForm.value);
-    // TODO: Dispatch action or fetch data from backend
   }
 }

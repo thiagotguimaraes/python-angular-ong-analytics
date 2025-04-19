@@ -5,7 +5,7 @@
         <mat-label>Well Name</mat-label>
         <mat-select formControlName="wellName">
           <mat-option *ngFor="let well of wells" [value]="well">
-            {{ well }}
+            {{ well.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
