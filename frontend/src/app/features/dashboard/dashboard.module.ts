@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FilterDrawerComponent } from "./components/filter-drawer/filter-drawer.component";
 import { ChartWidgetComponent } from "./components/chart-widget/chart-widget.component";
@@ -27,8 +28,8 @@ const routes: Routes = [
   declarations: [
     DashboardComponent,
     FilterDrawerComponent,
+    TableWidgetComponent,
     ChartWidgetComponent,
-    TableWidgetComponent
   ],
   imports: [
     CommonModule, 
@@ -41,6 +42,9 @@ const routes: Routes = [
     MatButtonModule,
     MatSidenavModule,
     ReactiveFormsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),    
   ],
 })
 export class DashboardModule {}
