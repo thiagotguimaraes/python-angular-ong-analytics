@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { ProductionPoint } from '../../../models';
+import { Component, OnInit  } from '@angular/core';
+import { ProductionPoint, Well } from '../../../models';
+import { DashboardDataService } from '../services/dashboard-data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,16 +8,18 @@ import { ProductionPoint } from '../../../models';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   productionData: ProductionPoint[] = [];
-  wellLocations = [
+  wellLocations: Well[] = [];
 
-    { name: 'Well A', lat: 24.466667, lon: 54.366669 },
-    { name: 'Well B', lat: 25.276987, lon: 55.296249 }
-  ];
-  // 1 | Well 1 | well_1     | 24.466667 | 54.366669
-  // 2 | Well 2 | well_2     | 25.276987 | 55.296249
-  // 3 | Well 3 | well_3     | 25.405216 | 55.513643
+  constructor(private dataService: DashboardDataService) {}
+
+  ngOnInit(): void {
+    this.dataService.getWells().subscribe((wells: Well[]) => {
+      this.wellLocations = wells;
+      console.log('this.wellLocations:', this.wellLocations);
+    });
+  }
   
 
   onDataFetched(data: ProductionPoint[]) {

@@ -1,5 +1,6 @@
 import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import maplibregl from 'maplibre-gl';
+import { Well } from '../../../../models';
 
 @Component({
   standalone: false,
@@ -9,7 +10,7 @@ import maplibregl from 'maplibre-gl';
 })
 export class MapWidgetComponent implements AfterViewInit {
   @ViewChild('map') mapElement!: ElementRef;
-  @Input() wells: { name: string; lat: number; lon: number }[] = [];
+  @Input() wells: Well[] = [];
 
   ngAfterViewInit(): void {
     const map = new maplibregl.Map({
@@ -22,7 +23,7 @@ export class MapWidgetComponent implements AfterViewInit {
     // Add markers for each well
     this.wells.forEach(well => {
       new maplibregl.Marker()
-        .setLngLat([well.lon, well.lat])
+        .setLngLat([well.longitude, well.latitude])
         .setPopup(new maplibregl.Popup().setText(well.name))
         .addTo(map);
     });
