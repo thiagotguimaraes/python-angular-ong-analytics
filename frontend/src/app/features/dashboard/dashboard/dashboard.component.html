@@ -1,4 +1,32 @@
-<app-filter-drawer (dataFetched)="onDataFetched($event)"></app-filter-drawer>
-<app-chart-widget [data]="productionData"></app-chart-widget>
-<app-table-widget [data]="productionData"></app-table-widget>
-<app-map-widget [wells]="wellLocations"></app-map-widget>
+<mat-sidenav-container class="dashboard-container">
+    <!-- Drawer -->
+    <mat-sidenav
+      mode="side"
+      #drawer
+      class="drawer"
+    >
+      <app-filter-drawer (dataFetched)="onDataFetched($event)"></app-filter-drawer>
+    </mat-sidenav>
+  
+    <!-- Main Content -->
+    <mat-sidenav-content>
+      <!-- Top Bar with Toggle -->
+      <mat-toolbar color="primary">
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Oil & Gas Dashboard</span>
+      </mat-toolbar>
+  
+      <!-- Widgets Container -->
+      <div class="widgets">
+        <app-map-widget [wells]="wellLocations"></app-map-widget>
+  
+        <div class="row">
+          <app-chart-widget [data]="productionData"></app-chart-widget>
+          <app-table-widget [data]="productionData"></app-table-widget>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

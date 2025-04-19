@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule  } from '@angular/material/sidenav';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -44,6 +46,8 @@ const routes: Routes = [
     MatButtonModule,
     MatTableModule,
     MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
     ReactiveFormsModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
