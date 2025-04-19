@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-chart-widget',
-  imports: [],
   templateUrl: './chart-widget.component.html',
   styleUrl: './chart-widget.component.scss'
 })
