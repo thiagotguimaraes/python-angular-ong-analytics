@@ -18,7 +18,6 @@ export const productionDataReducer = createReducer(
   initialState,
   on(ProductionActions.loadProductionData, state => ({ ...state, loading: true })),
   on(ProductionActions.loadProductionDataSuccess, (state, { data }) => {
-    console.log('[REDUCER] Storing data:', data); // 👈
     return {
       ...state,
       data,

@@ -18,7 +18,6 @@ export class ChartWidgetComponent implements OnChanges {
 
   ngOnInit() {
     this.store.select(selectProductionData).subscribe(data => {
-      console.log('[CHART] Received production data:', data); // 👈
       this.data = data;
       this.updateChart();
     });

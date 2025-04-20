@@ -14,7 +14,6 @@ export class DashboardDataService {
   }
 
   getProductionData(collection: string, start_ms: number | null | undefined = null, end_ms: number | null | undefined = null): Observable<ProductionPoint[]> {
-    console.log('Fetching production data for collection:', collection, start_ms, end_ms); // 👈
     if (!start_ms || !end_ms) {
       console.warn('!!!!!  TO BE FIXED !!!!!! No start or end time provided, mocking it');
       start_ms = 1738526400000 

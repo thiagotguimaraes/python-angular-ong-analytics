@@ -20,7 +20,6 @@ export class TableWidgetComponent implements OnChanges {
 
   ngOnInit() {
       this.store.select(selectProductionData).subscribe(data => {
-        console.log('[CHART] Received production data:', data); // 👈
         this.dataSource.data = data;
       });
     }

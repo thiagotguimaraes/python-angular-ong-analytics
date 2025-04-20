@@ -15,11 +15,13 @@ export class DashboardComponent implements OnInit {
   constructor(private dataService: DashboardDataService) {}
 
   ngOnInit(): void {
-    this.dataService.getProductionData('well_1', null, null).subscribe((data: ProductionPoint[]) => {
-      this.productionData = data
-    });
     this.dataService.getWells().subscribe((wells: Well[]) => {
       this.wellLocations = wells;
+      if (wells.length > 0) {
+        this.dataService.getProductionData(wells[0].collection, null, null).subscribe((data: ProductionPoint[]) => {
+          this.productionData = data
+        });
+      }
     });
   }
   
