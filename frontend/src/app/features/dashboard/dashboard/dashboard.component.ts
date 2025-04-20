@@ -1,32 +1,39 @@
-import { Component, OnInit  } from '@angular/core';
-import { ProductionPoint, Well } from '../../../models';
+import { Component, OnInit } from '@angular/core';
+import { Well } from '../../../models';
 import { DashboardDataService } from '../services/dashboard-data.service';
+import { Store } from '@ngrx/store';
+import { selectWell } from '../../../state/selected-well/selected-well.actions';
+import { loadProductionData } from '../../../state/production-data/production-data.actions';
 
 @Component({
   selector: 'app-dashboard',
   standalone: false,
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-  productionData: ProductionPoint[] = [];
-  wellLocations: Well[] = [];
+  wells!: Well[];
 
-  constructor(private dataService: DashboardDataService) {}
+  constructor(
+    private store: Store,
+    private dataService: DashboardDataService
+  ) {}
 
   ngOnInit(): void {
     this.dataService.getWells().subscribe((wells: Well[]) => {
-      this.wellLocations = wells;
+      this.wells = wells;
+
       if (wells.length > 0) {
-        this.dataService.getProductionData(wells[0].collection, null, null).subscribe((data: ProductionPoint[]) => {
-          this.productionData = data
-        });
+        const well = wells[0];
+        this.store.dispatch(selectWell({ well }));
+        this.store.dispatch(
+          loadProductionData({
+            collection: well.collection,
+            start_ms: null,
+            end_ms: null,
+          })
+        );
       }
     });
-  }
-  
-
-  onDataFetched(data: ProductionPoint[]) {
-    this.productionData = data;
   }
 }

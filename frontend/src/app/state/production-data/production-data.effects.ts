@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DashboardDataService } from '../../features/dashboard/services/dashboard-data.service';
 import * as ProductionActions from './production-data.actions';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 
 @Injectable()
 export class ProductionDataEffects {
@@ -16,8 +16,8 @@ export class ProductionDataEffects {
     this.loadProductionData$ = createEffect(() =>
       this.actions$.pipe(
         ofType(ProductionActions.loadProductionData),
-        mergeMap(({ collection }) =>
-          this.dataService.getProductionData(collection).pipe(
+        mergeMap(({ collection, start_ms, end_ms }) =>
+          this.dataService.getProductionData(collection, start_ms, end_ms).pipe(
             map(data => ProductionActions.loadProductionDataSuccess({ data })),
             catchError(error =>
               of(ProductionActions.loadProductionDataFailure({ error }))

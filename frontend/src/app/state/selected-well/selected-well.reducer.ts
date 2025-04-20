@@ -1,8 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { selectWell, clearSelectedWell } from './selected-well.actions';
+import { Well } from '../../models';
 
 export interface SelectedWellState {
-  well: { name: string; latitude: number; longitude: number } | null;
+  well: Well | null;
 }
 
 export const initialState: SelectedWellState = {

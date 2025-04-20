@@ -3,7 +3,7 @@ import { ProductionPoint } from '../../models';
 
 export const loadProductionData = createAction(
   '[Production] Load Data',
-  props<{ collection: string }>()
+  props<{ collection: string, start_ms: number | null | undefined, end_ms: number | null | undefined }>()
 );
 
 export const loadProductionDataSuccess = createAction(

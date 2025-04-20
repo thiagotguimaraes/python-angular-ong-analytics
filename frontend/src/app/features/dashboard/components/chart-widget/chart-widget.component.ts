@@ -1,30 +1,35 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { ProductionPoint } from '../../../../models';
-import { selectProductionData } from '../../../../state/production-data/production-data.selectors';
+import {
+  selectProductionData,
+  selectProductionLoading,
+} from '../../../../state/production-data/production-data.selectors';
 import { Store } from '@ngrx/store';
 
 @Component({
   standalone: false,
   selector: 'app-chart-widget',
   templateUrl: './chart-widget.component.html',
-  styleUrls: ['./chart-widget.component.scss']
+  styleUrls: ['./chart-widget.component.scss'],
 })
-export class ChartWidgetComponent implements OnChanges {
-  constructor(private store: Store) {}
+export class ChartWidgetComponent {
+  productionData$;
+  loading$;
+  data: ProductionPoint[] = [];
 
-  @Input() data: ProductionPoint[] = [];
+  constructor(private store: Store) {
+    this.productionData$ = this.store.select(selectProductionData);
+    this.loading$ = this.store.select(selectProductionLoading);
+  }
+
   chartOptions: EChartsOption = {};
 
   ngOnInit() {
-    this.store.select(selectProductionData).subscribe(data => {
+    this.productionData$.subscribe((data) => {
       this.data = data;
       this.updateChart();
     });
-  }
-
-  ngOnChanges(): void {
-    this.updateChart();
   }
 
   updateChart(): void {
@@ -43,7 +48,7 @@ export class ChartWidgetComponent implements OnChanges {
           name: 'Oil Rate',
           type: 'line',
           smooth: true,
-          data: this.data.map(point => [point.timestamp, point.oil_rate]),
+          data: this.data.map((point) => [point.timestamp, point.oil_rate]),
         },
       ],
     };
