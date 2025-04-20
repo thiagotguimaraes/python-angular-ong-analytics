@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getWells().subscribe((wells: Well[]) => {
       this.wellLocations = wells;
-      console.log('this.wellLocations:', this.wellLocations);
     });
   }
   

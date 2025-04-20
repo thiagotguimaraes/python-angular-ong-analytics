@@ -27,15 +27,12 @@ export class FilterDrawerComponent implements OnInit {
     });
 
     this.dataService.getWells().subscribe((wells) => {
-      console.log('wells:', wells);
-      
       this.wells = wells;
     });
   }
 
   onSubmit() {
     const { collection, startDate, endDate } = this.filterForm.value;
-    console.log('Filter values:', this.filterForm.value);
     
     this.dataService
       .getProductionData(

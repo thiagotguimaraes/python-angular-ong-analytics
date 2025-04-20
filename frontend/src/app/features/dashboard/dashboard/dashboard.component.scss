@@ -7,16 +7,23 @@
   }
   
   .widgets {
-    padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    flex-grow: 1;
+    height: 100%;
   }
   
   .row {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+
+  .map-row {
+    width: 100%;
+    margin-bottom: 1rem;
   }
   
   app-chart-widget,

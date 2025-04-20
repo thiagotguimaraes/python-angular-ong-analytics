@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FilterDrawerComponent } from "./components/filter-drawer/filter-drawer.component";
 import { ChartWidgetComponent } from "./components/chart-widget/chart-widget.component";
 import { TableWidgetComponent } from "./components/table-widget/table-widget.component";
-import { MapWidgetComponent } from './components/map-widget/map-widget.component';
+import { LeafletMapComponent } from './components/leaflet-map/leaflet-map.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,7 +33,7 @@ const routes: Routes = [
     FilterDrawerComponent,
     TableWidgetComponent,
     ChartWidgetComponent,
-    MapWidgetComponent
+    LeafletMapComponent
   ],
   imports: [
     CommonModule, 

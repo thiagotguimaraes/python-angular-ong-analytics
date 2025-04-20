@@ -20,7 +20,10 @@
   
       <!-- Widgets Container -->
       <div class="widgets">
-        <app-map-widget [wells]="wellLocations"></app-map-widget>
+        <div class="map-row">
+            <!-- <app-map-widget [wells]="wellLocations"></app-map-widget> -->
+            <app-leaflet-map *ngIf="wellLocations.length" [wells]="wellLocations"></app-leaflet-map>
+          </div>
   
         <div class="row">
           <app-chart-widget [data]="productionData"></app-chart-widget>
