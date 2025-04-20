@@ -68,8 +68,8 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges {
 					this.store.dispatch(
 						loadProductionData({
 							collection: well.collection,
-							start_ms: null,
-							end_ms: null,
+							start_ms: well.start_ms,
+							end_ms: well.end_ms,
 						})
 					)
 				})

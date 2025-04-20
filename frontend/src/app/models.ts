@@ -11,4 +11,6 @@ export interface Well {
 	latitude: number
 	longitude: number
 	id: number
+	start_ms: number
+	end_ms: number
 }

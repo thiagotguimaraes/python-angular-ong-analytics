@@ -9,6 +9,8 @@ class WellBase(BaseModel):
 
 class WellOut(WellBase):
     id: int
+    start_ms: int
+    end_ms: int
 
     class Config:
         orm_mode = True

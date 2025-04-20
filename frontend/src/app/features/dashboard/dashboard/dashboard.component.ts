@@ -4,8 +4,9 @@ import { DashboardDataService } from '../services/dashboard-data.service'
 import { Store } from '@ngrx/store'
 import { selectWell } from '../../../state/selected-well/selected-well.actions'
 import { loadProductionData } from '../../../state/production-data/production-data.actions'
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { BreakpointObserver } from '@angular/cdk/layout'
 import { MatSidenav } from '@angular/material/sidenav'
+import { setDateRange } from '../../../state/date-range/date-range.actions'
 
 @Component({
 	selector: 'app-dashboard',
@@ -39,11 +40,12 @@ export class DashboardComponent implements OnInit {
 			if (wells.length > 0) {
 				const well = wells[0]
 				this.store.dispatch(selectWell({ well }))
+				this.store.dispatch(setDateRange({ start_ms: well.start_ms, end_ms: well.end_ms }))
 				this.store.dispatch(
 					loadProductionData({
 						collection: well.collection,
-						start_ms: null,
-						end_ms: null,
+						start_ms: well.start_ms,
+						end_ms: well.end_ms,
 					})
 				)
 			}

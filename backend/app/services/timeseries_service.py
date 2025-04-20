@@ -26,3 +26,19 @@ async def get_timeseries_data(well_table: str, start_ms: int, end_ms: int):
         """
         rows = await conn.fetch(query, start_s, end_s)
         return [dict(row) for row in rows]
+    
+
+async def get_wells_ranges(wells):
+    async for ts_conn in ts_db_manager.get_connection():
+        date_ranges = []
+        for well in wells:
+            # Query to fetch the first and last rows from the well's collection table
+            query = f"""
+                (SELECT * FROM "{well.collection}" ORDER BY timestamp ASC LIMIT 1)
+                UNION ALL
+                (SELECT * FROM "{well.collection}" ORDER BY timestamp DESC LIMIT 1)
+            """
+            rows = await ts_conn.fetch(query)
+            date_ranges.append([row["timestamp"] for row in rows])
+            
+    return date_ranges

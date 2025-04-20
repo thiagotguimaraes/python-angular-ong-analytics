@@ -19,16 +19,7 @@ export class DashboardDataService {
 		)
 	}
 
-	getProductionData(
-		collection: string,
-		start_ms: number | null | undefined = null,
-		end_ms: number | null | undefined = null
-	): Observable<ProductionPoint[]> {
-		if (!start_ms || !end_ms) {
-			console.warn('!!!!!  TO BE FIXED !!!!!! No start or end time provided, mocking it')
-			start_ms = 1738526400000
-			end_ms = 1743451200000
-		}
+	getProductionData(collection: string, start_ms: number, end_ms: number): Observable<ProductionPoint[]> {
 		return this.http
 			.get<ProductionPoint[]>(`${API_URL}/data`, {
 				params: {
