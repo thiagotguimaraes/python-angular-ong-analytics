@@ -1,5 +1,9 @@
 import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import * as L from 'leaflet';
+import { Store } from '@ngrx/store';
+import { selectWell } from '../../../../state/selected-well/selected-well.actions';
+import { loadProductionData } from '../../../../state/production-data/production-data.actions';
+import { Well } from '../../../../models';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
@@ -16,8 +20,11 @@ L.Icon.Default.mergeOptions({
   styleUrls: ['./leaflet-map.component.scss']
 })
 export class LeafletMapComponent implements AfterViewInit {
+  constructor(private store: Store) {}
+
+
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
-  @Input() wells: { name: string; latitude: number; longitude: number }[] = [];
+  @Input() wells: Well[] = [];
 
   map!: L.Map;
 
@@ -34,7 +41,8 @@ export class LeafletMapComponent implements AfterViewInit {
         .bindPopup(`<b>${well.name}</b>`)
         .on('click', () => {
           console.log('Clicked well:', well.name);
-          // or dispatch a NgRx action here
+          this.store.dispatch(selectWell({ well }));
+          this.store.dispatch(loadProductionData({ collection: well.collection }));
         });
     });
 

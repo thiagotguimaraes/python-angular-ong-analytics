@@ -1,12 +1,21 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-
+import { provideStore } from '@ngrx/store';
+import { selectedWellReducer } from './state/selected-well/selected-well.reducer';
+import { productionDataReducer } from './state/production-data/production-data.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { ProductionDataEffects } from './state/production-data/production-data.effects';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient() // ✅ Required for HttpClient to work
+    provideHttpClient(),
+    provideStore({
+      selectedWell: selectedWellReducer,
+      productionData: productionDataReducer
+    }),
+    provideEffects([ProductionDataEffects]),
   ]
 };

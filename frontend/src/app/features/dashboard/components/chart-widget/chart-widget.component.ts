@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { ProductionPoint } from '../../../../models';
+import { selectProductionData } from '../../../../state/production-data/production-data.selectors';
+import { Store } from '@ngrx/store';
 
 @Component({
   standalone: false,
@@ -9,8 +11,18 @@ import { ProductionPoint } from '../../../../models';
   styleUrls: ['./chart-widget.component.scss']
 })
 export class ChartWidgetComponent implements OnChanges {
+  constructor(private store: Store) {}
+
   @Input() data: ProductionPoint[] = [];
   chartOptions: EChartsOption = {};
+
+  ngOnInit() {
+    this.store.select(selectProductionData).subscribe(data => {
+      console.log('[CHART] Received production data:', data); // 👈
+      this.data = data;
+      this.updateChart();
+    });
+  }
 
   ngOnChanges(): void {
     this.updateChart();
