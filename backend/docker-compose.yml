@@ -26,7 +26,7 @@ services:
 
   backend:
     # command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
-    entrypoint: ["sh", "-c", "./pre-run.sh && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"]
+    entrypoint: ["sh", "-c", "./tools/pre-run.sh && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"]
     build: .
     container_name: fastapi_app
     ports:
