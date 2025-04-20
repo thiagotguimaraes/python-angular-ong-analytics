@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Well } from '../../../../models'
 import { Store } from '@ngrx/store'
 import { loadProductionData } from '../../../../state/production-data/production-data.actions'
@@ -24,9 +24,9 @@ export class FilterFormComponent {
 		this.selectedWell$ = this.store.select(selectSelectedWell)
 
 		this.filterForm = this.fb.group({
-			collection: [null],
-			startDate: [null],
-			endDate: [null],
+			collection: [null, Validators.required],
+			startDate: [null, Validators.required],
+			endDate: [null, Validators.required],
 		})
 
 		this.selectedWell$.subscribe((well: Well | null) => {
