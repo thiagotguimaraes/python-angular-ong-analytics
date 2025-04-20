@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
+import { Observable, of } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 import { ProductionPoint, Well } from '../../../models'
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +11,13 @@ export class DashboardDataService {
 	constructor(private http: HttpClient) {}
 
 	getWells(): Observable<Well[]> {
-		return this.http.get<Well[]>(`${this.apiUrl}/wells`)
+		return this.http.get<Well[]>(`${this.apiUrl}/wells`).pipe(
+			catchError((error) => {
+				console.error('Error fetching wells:', error)
+				// Return an empty array as a fallback
+				return of([])
+			})
+		)
 	}
 
 	getProductionData(
@@ -23,12 +30,20 @@ export class DashboardDataService {
 			start_ms = 1738526400000
 			end_ms = 1743451200000
 		}
-		return this.http.get<ProductionPoint[]>(`${this.apiUrl}/data`, {
-			params: {
-				well: collection,
-				...(start_ms !== null && start_ms !== undefined && { start_ms: start_ms.toString() }),
-				...(end_ms !== null && end_ms !== undefined && { end_ms: end_ms.toString() }),
-			},
-		})
+		return this.http
+			.get<ProductionPoint[]>(`${this.apiUrl}/data`, {
+				params: {
+					well: collection,
+					...(start_ms !== null && start_ms !== undefined && { start_ms: start_ms.toString() }),
+					...(end_ms !== null && end_ms !== undefined && { end_ms: end_ms.toString() }),
+				},
+			})
+			.pipe(
+				catchError((error) => {
+					console.error('Error fetching production data:', error)
+					// Return an empty array as a fallback
+					return of([])
+				})
+			)
 	}
 }

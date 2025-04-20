@@ -12,7 +12,7 @@ import { loadProductionData } from '../../../state/production-data/production-da
 	styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-	wells!: Well[]
+	wells: Well[] = []
 
 	constructor(private store: Store, private dataService: DashboardDataService) {}
 

@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core'
+import { Component, Input, AfterViewInit, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core'
 import * as L from 'leaflet'
 import { Store } from '@ngrx/store'
 import { selectWell } from '../../../../state/selected-well/selected-well.actions'
@@ -20,13 +20,14 @@ L.Icon.Default.mergeOptions({
 	templateUrl: './leaflet-map.component.html',
 	styleUrls: ['./leaflet-map.component.scss'],
 })
-export class LeafletMapComponent implements AfterViewInit {
+export class LeafletMapComponent implements AfterViewInit, OnChanges {
 	constructor(private store: Store) {}
 
 	@ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef
 	@Input() wells: Well[] = []
 	map!: L.Map
 	selectedWell$: any
+	selectedWell: Well | null = null
 
 	defaultIcon = L.icon({
 		iconUrl: 'assets/leaflet/marker-icon.png',
@@ -46,6 +47,41 @@ export class LeafletMapComponent implements AfterViewInit {
 		shadowSize: [41, 41],
 	})
 
+	private update() {
+		this.map.eachLayer((layer) => {
+			if (layer instanceof L.Marker) {
+				this.map.removeLayer(layer)
+			}
+		})
+
+		// Add markers with appropriate icons
+		this.wells.forEach((well) => {
+			const isSelected = this.selectedWell && well.collection === this.selectedWell.collection
+			L.marker([well.latitude, well.longitude], {
+				icon: isSelected ? this.selectedIcon : this.defaultIcon,
+			})
+				.addTo(this.map)
+				.bindPopup(`<b>${well.name}</b>`)
+				.on('click', () => {
+					console.log('Clicked well:', well.name)
+					this.store.dispatch(selectWell({ well }))
+					this.store.dispatch(
+						loadProductionData({
+							collection: well.collection,
+							start_ms: null,
+							end_ms: null,
+						})
+					)
+				})
+		})
+
+		if (this.wells.length > 0) {
+			// Adjust map bounds
+			const bounds = L.latLngBounds(this.wells.map((w) => [w.latitude, w.longitude]))
+			this.map.fitBounds(bounds, { padding: [20, 20] })
+		}
+	}
+
 	ngAfterViewInit(): void {
 		this.map = L.map(this.mapContainer.nativeElement).setView([0, 0], 6)
 
@@ -56,40 +92,17 @@ export class LeafletMapComponent implements AfterViewInit {
 		this.selectedWell$ = this.store.select(selectSelectedWell)
 
 		this.selectedWell$.subscribe((selectedWell: Well | null) => {
-			// Clear existing markers
-			this.map.eachLayer((layer) => {
-				if (layer instanceof L.Marker) {
-					this.map.removeLayer(layer)
-				}
-			})
-
-			// Add markers with appropriate icons
-			this.wells.forEach((well) => {
-				const isSelected = selectedWell && well.collection === selectedWell.collection
-				L.marker([well.latitude, well.longitude], {
-					icon: isSelected ? this.selectedIcon : this.defaultIcon,
-				})
-					.addTo(this.map)
-					.bindPopup(`<b>${well.name}</b>`)
-					.on('click', () => {
-						console.log('Clicked well:', well.name)
-						this.store.dispatch(selectWell({ well }))
-						this.store.dispatch(
-							loadProductionData({
-								collection: well.collection,
-								start_ms: null,
-								end_ms: null,
-							})
-						)
-					})
-			})
-
-			// Adjust map bounds
-			const bounds = L.latLngBounds(this.wells.map((w) => [w.latitude, w.longitude]))
-			this.map.fitBounds(bounds, { padding: [20, 20] })
+			this.selectedWell = selectedWell
+			this.update()
 		})
 
 		// Trigger map resize
 		setTimeout(() => this.map.invalidateSize(), 100)
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes['wells'] && !changes['wells'].firstChange) {
+			this.update() // Refresh the map when wells input changes
+		}
 	}
 }
