@@ -8,6 +8,8 @@
   
   .drawer {
     width: 360px;
+    border: 1px solid #ccc; // Optional: helps visualize boundaries
+    border-radius: 0px !important;
   }
   
   .widgets {
@@ -16,23 +18,26 @@
     gap: 1rem;
     flex-grow: 1;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
+    margin: 10px;
   }
 
-  .widget {
-    position: relative;
-    height: 100%;
-    max-height: 416px;
-    overflow: auto;
-    min-width: 200px;
-    width: 100%;
-    max-width: 48%;
-  }
-  
   .row {
     display: flex;
-    // gap: 1rem;
-    flex-wrap: wrap;
+    gap: 1rem; /* Space between widgets */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: space-between; /* Ensure widgets are spaced evenly */
+  }
+  
+  .widget {
+    flex: 1 1 calc(50% - 0.5rem); /* Each widget takes 50% of the row minus the gap */
+    min-width: 300px; /* Minimum width for responsiveness */
+    max-width: calc(50% - 0.5rem); /* Ensure widgets don't exceed 50% of the row */
+    max-height: 415px; /* Set a maximum height */
+    height: calc(100% - 20px);
+    box-sizing: border-box; /* Include padding and border in width/height */
+    overflow: auto; /* Prevent overflow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
   }
 
 
@@ -40,10 +45,38 @@
     width: 100%;
     // margin-bottom: 1rem;
   }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
   
   app-chart-widget,
   app-table-widget {
     flex: 1 1 48%;
     min-width: 300px;
+  }
+
+  mat-toolbar {
+    height: 48px; /* Set your desired height */
+    min-height: 48px; /* Ensure the minimum height is also adjusted */
+    line-height: 36px; /* Align content vertically */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+    font-size: 18px;
+  }
+
+  mat-toolbar button {
+    height: 36px; /* Adjust button height */
+    width: 36px; /* Adjust button width */
+  }
+
+  mat-toolbar span {
+    margin-left: 5px;
+    margin-top: 3px !important;
+    color: var(--mat-sys-on-background);
+  }
+
+  mat-icon {
+    margin-left: -2px;
+    margin-top: -2px;
   }
   

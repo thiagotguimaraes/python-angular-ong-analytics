@@ -35,20 +35,37 @@ export class ChartWidgetComponent {
 	updateChart(): void {
 		this.chartOptions = {
 			tooltip: { trigger: 'axis' },
+			legend: {
+				data: ['Oil Rate', 'Pressure', 'Temperature'], // Add legends for all series
+			},
 			xAxis: {
 				type: 'time',
-				name: 'Timestamp',
+				name: 'Date',
 			},
-			yAxis: {
-				type: 'value',
-				name: 'Oil Rate (bbl/day)',
-			},
+			yAxis: [
+				{
+					type: 'value',
+					name: 'Oil Rate (bbl/day)',
+				},
+				{
+					type: 'value',
+					name: 'Pressure (psi)',
+					position: 'right',
+				},
+			],
 			series: [
 				{
 					name: 'Oil Rate',
 					type: 'line',
 					smooth: true,
 					data: this.data.map((point) => [point.timestamp, point.oil_rate]),
+				},
+				{
+					name: 'Pressure',
+					type: 'line',
+					smooth: true,
+					yAxisIndex: 1, // Use the second y-axis for pressure
+					data: this.data.map((point) => [point.timestamp, point.pressure]),
 				},
 			],
 		}

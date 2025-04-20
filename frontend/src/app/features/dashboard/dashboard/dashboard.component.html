@@ -3,7 +3,6 @@
 	<mat-sidenav mode="side" #drawer class="drawer">
 		<app-filter-drawer *ngIf="wells.length" [wells]="wells"></app-filter-drawer>
 	</mat-sidenav>
-
 	<!-- Main Content -->
 	<mat-sidenav-content class="dashboard-content-container">
 		<!-- Top Bar with Toggle -->
@@ -17,17 +16,12 @@
 		<!-- Widgets Container -->
 		<div class="widgets">
 			<div class="map-row">
-				<!-- <app-map-widget [wells]="wellLocations"></app-map-widget> -->
-				<app-leaflet-map [wells]="wells"></app-leaflet-map>
+				<app-leaflet-map [wells]="wells" class="widget"></app-leaflet-map>
 			</div>
 
 			<div class="row">
-				<div class="widget">
-					<app-chart-widget></app-chart-widget>
-				</div>
-				<div class="widget">
-					<app-table-widget></app-table-widget>
-				</div>
+				<app-chart-widget class="widget overflow-hidden"></app-chart-widget>
+				<app-table-widget class="widget"></app-table-widget>
 			</div>
 		</div>
 	</mat-sidenav-content>
