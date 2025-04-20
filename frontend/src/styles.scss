@@ -7,3 +7,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --mat-sys-surface-variant: transparent; /* Set the background color to white */
     --mat-sys-surface-container-high: #faf9fd;
   }
+
+  .snackbar-error .mat-mdc-snackbar-surface {
+    background-color: #c62828 !important;
+    color: white;
+  }
+  
+  .snackbar-success .mat-mdc-snackbar-surface {
+    background-color: #2e7d32 !important;
+    color: white;
+  }
+  
