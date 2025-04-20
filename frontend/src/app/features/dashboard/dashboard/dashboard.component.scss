@@ -1,9 +1,12 @@
 .dashboard-container {
     height: 100vh;
+    width: 100vw;
   }
   
 .dashboard-content-container {
     overflow: hidden;
+    position: absolute;
+    width: 100%;
 }
   
   .drawer {
@@ -22,12 +25,16 @@
     margin: 10px;
   }
 
+
+
   .row {
     display: flex;
     gap: 1rem; /* Space between widgets */
     flex-wrap: nowrap; /* Prevent wrapping */
     justify-content: space-between; /* Ensure widgets are spaced evenly */
   }
+
+  
   
   .widget {
     flex: 1 1 calc(50% - 0.5rem); /* Each widget takes 50% of the row minus the gap */
@@ -86,3 +93,19 @@
     align-items: center; /* Vertically align the content */
   }
   
+
+  @media (max-width: 980px) {
+    .widgets {
+      overflow: auto;
+      max-height: calc(100% - 68px);
+    }
+
+    .row {
+      flex-direction: column;
+    }
+
+    .widget {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
