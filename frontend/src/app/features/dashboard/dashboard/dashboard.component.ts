@@ -15,7 +15,9 @@ export class DashboardComponent implements OnInit {
   constructor(private dataService: DashboardDataService) {}
 
   ngOnInit(): void {
-    this.dataService.getProductionData('well_1', null, null).subscribe(console.log);
+    this.dataService.getProductionData('well_1', null, null).subscribe((data: ProductionPoint[]) => {
+      this.productionData = data
+    });
     this.dataService.getWells().subscribe((wells: Well[]) => {
       this.wellLocations = wells;
     });
