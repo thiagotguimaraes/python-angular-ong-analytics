@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { LeafletMapComponent } from './leaflet-map.component';
+import { LeafletMapComponent } from './leaflet-map.component'
 
 describe('LeafletMapComponent', () => {
-  let component: LeafletMapComponent;
-  let fixture: ComponentFixture<LeafletMapComponent>;
+	let component: LeafletMapComponent
+	let fixture: ComponentFixture<LeafletMapComponent>
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [LeafletMapComponent]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [LeafletMapComponent],
+		}).compileComponents()
 
-    fixture = TestBed.createComponent(LeafletMapComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(LeafletMapComponent)
+		component = fixture.componentInstance
+		fixture.detectChanges()
+	})
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+	it('should create', () => {
+		expect(component).toBeTruthy()
+	})
+})

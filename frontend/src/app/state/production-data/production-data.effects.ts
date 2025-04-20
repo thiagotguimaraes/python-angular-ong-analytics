@@ -1,31 +1,24 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { DashboardDataService } from '../../features/dashboard/services/dashboard-data.service';
-import * as ProductionActions from './production-data.actions';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { DashboardDataService } from '../../features/dashboard/services/dashboard-data.service'
+import * as ProductionActions from './production-data.actions'
+import { catchError, map, mergeMap, of } from 'rxjs'
 
 @Injectable()
 export class ProductionDataEffects {
-  loadProductionData$: any; 
+	loadProductionData$: any
 
-  constructor(
-    private actions$: Actions,
-    private dataService: DashboardDataService
-  ) {
-    
-    this.loadProductionData$ = createEffect(() =>
-      this.actions$.pipe(
-        ofType(ProductionActions.loadProductionData),
-        mergeMap(({ collection, start_ms, end_ms }) =>
-          this.dataService.getProductionData(collection, start_ms, end_ms).pipe(
-            map(data => ProductionActions.loadProductionDataSuccess({ data })),
-            catchError(error =>
-              of(ProductionActions.loadProductionDataFailure({ error }))
-            )
-          )
-        )
-      )
-    );
-  }
-
+	constructor(private actions$: Actions, private dataService: DashboardDataService) {
+		this.loadProductionData$ = createEffect(() =>
+			this.actions$.pipe(
+				ofType(ProductionActions.loadProductionData),
+				mergeMap(({ collection, start_ms, end_ms }) =>
+					this.dataService.getProductionData(collection, start_ms, end_ms).pipe(
+						map((data) => ProductionActions.loadProductionDataSuccess({ data })),
+						catchError((error) => of(ProductionActions.loadProductionDataFailure({ error })))
+					)
+				)
+			)
+		)
+	}
 }

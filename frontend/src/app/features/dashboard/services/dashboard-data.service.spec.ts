@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { DashboardDataService } from './dashboard-data.service';
+import { DashboardDataService } from './dashboard-data.service'
 
 describe('DashboardDataService', () => {
-  let service: DashboardDataService;
+	let service: DashboardDataService
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(DashboardDataService);
-  });
+	beforeEach(() => {
+		TestBed.configureTestingModule({})
+		service = TestBed.inject(DashboardDataService)
+	})
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+	it('should be created', () => {
+		expect(service).toBeTruthy()
+	})
+})

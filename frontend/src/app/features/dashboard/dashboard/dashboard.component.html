@@ -1,34 +1,34 @@
 <mat-sidenav-container class="dashboard-container">
-  <!-- Drawer -->
-  <mat-sidenav mode="side" #drawer class="drawer">
-    <app-filter-drawer *ngIf="wells.length" [wells]="wells"></app-filter-drawer>
-  </mat-sidenav>
+	<!-- Drawer -->
+	<mat-sidenav mode="side" #drawer class="drawer">
+		<app-filter-drawer *ngIf="wells.length" [wells]="wells"></app-filter-drawer>
+	</mat-sidenav>
 
-  <!-- Main Content -->
-  <mat-sidenav-content class="dashboard-content-container">
-    <!-- Top Bar with Toggle -->
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>Oil & Gas Dashboard</span>
-    </mat-toolbar>
+	<!-- Main Content -->
+	<mat-sidenav-content class="dashboard-content-container">
+		<!-- Top Bar with Toggle -->
+		<mat-toolbar color="primary">
+			<button mat-icon-button (click)="drawer.toggle()">
+				<mat-icon>menu</mat-icon>
+			</button>
+			<span>Oil & Gas Dashboard</span>
+		</mat-toolbar>
 
-    <!-- Widgets Container -->
-    <div class="widgets">
-      <div class="map-row">
-        <!-- <app-map-widget [wells]="wellLocations"></app-map-widget> -->
-        <app-leaflet-map *ngIf="wells.length" [wells]="wells"></app-leaflet-map>
-      </div>
+		<!-- Widgets Container -->
+		<div class="widgets">
+			<div class="map-row">
+				<!-- <app-map-widget [wells]="wellLocations"></app-map-widget> -->
+				<app-leaflet-map *ngIf="wells.length" [wells]="wells"></app-leaflet-map>
+			</div>
 
-      <div class="row">
-        <div class="widget">
-          <app-chart-widget></app-chart-widget>
-        </div>
-        <div class="widget">
-          <app-table-widget></app-table-widget>
-        </div>
-      </div>
-    </div>
-  </mat-sidenav-content>
+			<div class="row">
+				<div class="widget">
+					<app-chart-widget></app-chart-widget>
+				</div>
+				<div class="widget">
+					<app-table-widget></app-table-widget>
+				</div>
+			</div>
+		</div>
+	</mat-sidenav-content>
 </mat-sidenav-container>

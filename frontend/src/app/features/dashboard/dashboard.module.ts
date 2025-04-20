@@ -1,57 +1,57 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NgxEchartsModule } from 'ngx-echarts';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { FilterDrawerComponent } from "./components/filter-drawer/filter-drawer.component";
-import { ChartWidgetComponent } from "./components/chart-widget/chart-widget.component";
-import { TableWidgetComponent } from "./components/table-widget/table-widget.component";
-import { LeafletMapComponent } from './components/leaflet-map/leaflet-map.component';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { NgxEchartsModule } from 'ngx-echarts'
+import { DashboardComponent } from './dashboard/dashboard.component'
+import { FilterDrawerComponent } from './components/filter-drawer/filter-drawer.component'
+import { ChartWidgetComponent } from './components/chart-widget/chart-widget.component'
+import { TableWidgetComponent } from './components/table-widget/table-widget.component'
+import { LeafletMapComponent } from './components/leaflet-map/leaflet-map.component'
+import { RouterModule, Routes } from '@angular/router'
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule  } from '@angular/material/sidenav';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatSelectModule } from '@angular/material/select'
+import { MatInputModule } from '@angular/material/input'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
+import { MatButtonModule } from '@angular/material/button'
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { ReactiveFormsModule } from '@angular/forms'
+import { MatTableModule } from '@angular/material/table'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatIconModule } from '@angular/material/icon'
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DashboardComponent,
-  },
-];
+	{
+		path: '',
+		component: DashboardComponent,
+	},
+]
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    FilterDrawerComponent,
-    TableWidgetComponent,
-    ChartWidgetComponent,
-    LeafletMapComponent
-  ],
-  imports: [
-    CommonModule, 
-    RouterModule.forChild(routes),
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonModule,
-    MatTableModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'),
-    }),
-  ],
+	declarations: [
+		DashboardComponent,
+		FilterDrawerComponent,
+		TableWidgetComponent,
+		ChartWidgetComponent,
+		LeafletMapComponent,
+	],
+	imports: [
+		CommonModule,
+		RouterModule.forChild(routes),
+		MatFormFieldModule,
+		MatSelectModule,
+		MatInputModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatButtonModule,
+		MatTableModule,
+		MatSidenavModule,
+		MatToolbarModule,
+		MatIconModule,
+		ReactiveFormsModule,
+		NgxEchartsModule.forRoot({
+			echarts: () => import('echarts'),
+		}),
+	],
 })
 export class DashboardModule {}

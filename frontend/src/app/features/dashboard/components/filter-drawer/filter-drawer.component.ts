@@ -1,53 +1,53 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Well } from '../../../../models';
-import { Store } from '@ngrx/store';
-import { loadProductionData } from '../../../../state/production-data/production-data.actions';
-import { selectWell } from '../../../../state/selected-well/selected-well.actions';
-import { selectSelectedWell } from '../../../../state/selected-well/selected-well.selectors';
+import { Component, Input, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup } from '@angular/forms'
+import { Well } from '../../../../models'
+import { Store } from '@ngrx/store'
+import { loadProductionData } from '../../../../state/production-data/production-data.actions'
+import { selectWell } from '../../../../state/selected-well/selected-well.actions'
+import { selectSelectedWell } from '../../../../state/selected-well/selected-well.selectors'
 
 @Component({
-  standalone: false,
-  selector: 'app-filter-drawer',
-  templateUrl: './filter-drawer.component.html',
-  styleUrls: ['./filter-drawer.component.scss'],
+	standalone: false,
+	selector: 'app-filter-drawer',
+	templateUrl: './filter-drawer.component.html',
+	styleUrls: ['./filter-drawer.component.scss'],
 })
 export class FilterDrawerComponent implements OnInit {
-  @Input() wells: Well[] = [];
-  selectedWell$: any;
-  filterForm!: FormGroup;
+	@Input() wells: Well[] = []
+	selectedWell$: any
+	filterForm!: FormGroup
 
-  constructor(private store: Store, private fb: FormBuilder) {}
+	constructor(private store: Store, private fb: FormBuilder) {}
 
-  ngOnInit(): void {
-    this.selectedWell$ = this.store.select(selectSelectedWell);
+	ngOnInit(): void {
+		this.selectedWell$ = this.store.select(selectSelectedWell)
 
-    this.filterForm = this.fb.group({
-      collection: [null],
-      startDate: [null],
-      endDate: [null],
-    });
+		this.filterForm = this.fb.group({
+			collection: [null],
+			startDate: [null],
+			endDate: [null],
+		})
 
-    this.selectedWell$.subscribe((well: Well | null) => {
-      if (well) {
-        this.filterForm.patchValue({
-          collection: well.collection,
-        });
-      }
-    });
-  }
+		this.selectedWell$.subscribe((well: Well | null) => {
+			if (well) {
+				this.filterForm.patchValue({
+					collection: well.collection,
+				})
+			}
+		})
+	}
 
-  onSubmit() {
-    const { collection, startDate, endDate } = this.filterForm.value;
-    const well = this.wells.find((w) => w.collection === collection);
-    if (well) {
-      this.store.dispatch(selectWell({ well }));
-    } else {
-      console.error('No matching well found for the selected collection.');
-    }
+	onSubmit() {
+		const { collection, startDate, endDate } = this.filterForm.value
+		const well = this.wells.find((w) => w.collection === collection)
+		if (well) {
+			this.store.dispatch(selectWell({ well }))
+		} else {
+			console.error('No matching well found for the selected collection.')
+		}
 
-    const start_ms = new Date(startDate).getTime();
-    const end_ms = new Date(endDate).getTime();
-    this.store.dispatch(loadProductionData({ collection, start_ms, end_ms }));
-  }
+		const start_ms = new Date(startDate).getTime()
+		const end_ms = new Date(endDate).getTime()
+		this.store.dispatch(loadProductionData({ collection, start_ms, end_ms }))
+	}
 }
