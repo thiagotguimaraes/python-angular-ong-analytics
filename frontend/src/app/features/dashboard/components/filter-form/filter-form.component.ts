@@ -8,12 +8,13 @@ import { selectSelectedWell } from '../../../../state/selected-well/selected-wel
 
 @Component({
 	standalone: false,
-	selector: 'app-filter-drawer',
-	templateUrl: './filter-drawer.component.html',
-	styleUrls: ['./filter-drawer.component.scss'],
+	selector: 'app-filter-form',
+	templateUrl: './filter-form.component.html',
+	styleUrl: './filter-form.component.scss',
 })
-export class FilterDrawerComponent implements OnInit {
+export class FilterFormComponent {
 	@Input() wells: Well[] = []
+	@Input() isMobile: boolean = false
 	selectedWell$: any
 	filterForm!: FormGroup
 

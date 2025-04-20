@@ -57,9 +57,9 @@
   }
 
   mat-toolbar {
-    height: 48px; /* Set your desired height */
-    min-height: 48px; /* Ensure the minimum height is also adjusted */
-    line-height: 36px; /* Align content vertically */
+    height: 54px; /* Set your desired height */
+    min-height: 54px; /* Ensure the minimum height is also adjusted */
+    line-height: 54px; /* Align content vertically */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
     font-size: 18px;
   }
@@ -78,5 +78,11 @@
   mat-icon {
     margin-left: -2px;
     margin-top: -2px;
+  }
+
+  .filter-inline {
+    margin-left: auto; /* Push the component to the right */
+    display: flex; /* Ensure proper alignment */
+    align-items: center; /* Vertically align the content */
   }
   

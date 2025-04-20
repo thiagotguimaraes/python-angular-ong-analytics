@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { NgxEchartsModule } from 'ngx-echarts'
 import { DashboardComponent } from './dashboard/dashboard.component'
-import { FilterDrawerComponent } from './components/filter-drawer/filter-drawer.component'
 import { ChartWidgetComponent } from './components/chart-widget/chart-widget.component'
 import { TableWidgetComponent } from './components/table-widget/table-widget.component'
 import { LeafletMapComponent } from './components/leaflet-map/leaflet-map.component'
+import { FilterFormComponent } from './components/filter-form/filter-form.component'
 import { RouterModule, Routes } from '@angular/router'
 
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -30,10 +30,10 @@ const routes: Routes = [
 @NgModule({
 	declarations: [
 		DashboardComponent,
-		FilterDrawerComponent,
 		TableWidgetComponent,
 		ChartWidgetComponent,
 		LeafletMapComponent,
+		FilterFormComponent,
 	],
 	imports: [
 		CommonModule,

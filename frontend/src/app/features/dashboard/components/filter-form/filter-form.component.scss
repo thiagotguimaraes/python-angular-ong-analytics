@@ -1,0 +1,32 @@
+form {
+    margin-left: 10px;
+    display: flex;
+    gap: 8px; /* Add a small space between elements */
+  }  
+  mat-form-field .mat-form-field-wrapper {
+    height: 100%; /* Ensure the wrapper respects the height */
+    display: flex;
+    align-items: center; /* Vertically center the content */
+  }
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none; /* Completely hide the subscript wrapper */
+  }
+  
+  button {
+    height: 36px; /* Set a maximum height for the button */
+    max-height: 36px;
+    align-self: center;
+  }
+
+  ::ng-deep .mdc-line-ripple,
+  ::ng-deep .mdc-line-ripple:before {
+    display: none !important; /* Completely hide the ripple and its pseudo-element */
+  }
+
+  .mobile-layout {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Add a small space between elements */
+  }

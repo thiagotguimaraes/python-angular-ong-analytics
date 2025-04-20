@@ -1,16 +1,24 @@
 <mat-sidenav-container class="dashboard-container">
-	<!-- Drawer -->
-	<mat-sidenav mode="side" #drawer class="drawer">
-		<app-filter-drawer *ngIf="wells.length" [wells]="wells"></app-filter-drawer>
+	<!-- Drawer (Mobile Only) -->
+	<mat-sidenav mode="side" #drawer class="drawer" *ngIf="isMobile">
+		<app-filter-form *ngIf="wells.length" [wells]="wells" [isMobile]="isMobile"></app-filter-form>
 	</mat-sidenav>
+
 	<!-- Main Content -->
 	<mat-sidenav-content class="dashboard-content-container">
-		<!-- Top Bar with Toggle -->
+		<!-- Top Toolbar -->
 		<mat-toolbar color="primary">
-			<button mat-icon-button (click)="drawer.toggle()">
+			<!-- Menu button only on mobile -->
+			<button *ngIf="isMobile" mat-icon-button (click)="toggleDrawer()">
 				<mat-icon>menu</mat-icon>
 			</button>
-			<span>Oil & Gas Dashboard</span>
+
+			<span>Dashboard</span>
+
+			<!-- Inline filter form on desktop -->
+			<div class="filter-inline" *ngIf="!isMobile && wells.length">
+				<app-filter-form [wells]="wells" [isMobile]="isMobile"></app-filter-form>
+			</div>
 		</mat-toolbar>
 
 		<!-- Widgets Container -->

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { Well } from '../../../models'
 import { DashboardDataService } from '../services/dashboard-data.service'
 import { Store } from '@ngrx/store'
 import { selectWell } from '../../../state/selected-well/selected-well.actions'
 import { loadProductionData } from '../../../state/production-data/production-data.actions'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { MatSidenav } from '@angular/material/sidenav'
 
 @Component({
 	selector: 'app-dashboard',
@@ -12,11 +14,25 @@ import { loadProductionData } from '../../../state/production-data/production-da
 	styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
+	@ViewChild('drawer') drawer!: MatSidenav // Reference the mat-sidenav element
+	isMobile = false
 	wells: Well[] = []
 
-	constructor(private store: Store, private dataService: DashboardDataService) {}
+	constructor(
+		private breakpointObserver: BreakpointObserver,
+		private store: Store,
+		private dataService: DashboardDataService
+	) {}
+
+	toggleDrawer(): void {
+		this.drawer.toggle()
+	}
 
 	ngOnInit(): void {
+		this.breakpointObserver.observe(['(max-width: 980px)']).subscribe((result) => {
+			this.isMobile = result.matches
+		})
+
 		this.dataService.getWells().subscribe((wells: Well[]) => {
 			this.wells = wells
 
