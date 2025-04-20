@@ -1,10 +1,10 @@
-import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.api.routes import router
 from app.db.timescale_db_manager import ts_db_manager
 from app.db.database_manager import db_manager
+from app.utils.logger import logger
 
 
 @asynccontextmanager
@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
     finally:
         # Shutdown logic
         ts_db_manager.close()
-        logging.info("Shutting down application...")
+        logger.info("Shutting down application...")
 
 
 
