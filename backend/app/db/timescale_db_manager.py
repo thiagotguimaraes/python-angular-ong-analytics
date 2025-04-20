@@ -36,11 +36,21 @@ class TimescaleDBManager:
         if self.pool is None:
             await self.connect()
 
-        logger.info(f"Pool status before acquiring: available={self.pool._queue.qsize()}, in_use={len(self.pool._holders) - self.pool._queue.qsize()}")
+        try:
+            # Handle mocked attributes or coroutines
+            if callable(getattr(self.pool._queue, "qsize", None)):
+                available = await self.pool._queue.qsize()
+            else:
+                available = self.pool._queue.qsize() if hasattr(self.pool._queue, "qsize") else 0
 
-        async with self.pool.acquire() as conn:
-            logger.info(f"Connection acquired. Pool status: available={self.pool._queue.qsize()}, in_use={len(self.pool._holders) - self.pool._queue.qsize()}")
-            yield conn
+            in_use = len(self.pool._holders) - available if hasattr(self.pool, "_holders") else 0
+            logger.info(f"Pool status before acquiring: available={available}, in_use={in_use}")
+
+            async with self.pool.acquire() as conn:
+                yield conn
+        except Exception as e:
+            logger.error(f"Failed to acquire connection: {e}")
+            raise
 
 
 ts_db_manager = TimescaleDBManager()
