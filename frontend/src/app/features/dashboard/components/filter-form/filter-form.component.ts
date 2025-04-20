@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store'
 import { loadProductionData } from '../../../../state/production-data/production-data.actions'
 import { selectWell } from '../../../../state/selected-well/selected-well.actions'
 import { selectSelectedWell } from '../../../../state/selected-well/selected-well.selectors'
+import { setDateRange } from '../../../../state/date-range/date-range.actions'
+import { selectDateRange } from '../../../../state/date-range/date-range.selectors'
 
 @Component({
 	standalone: false,
@@ -36,6 +38,15 @@ export class FilterFormComponent {
 				})
 			}
 		})
+
+		this.store.select(selectDateRange).subscribe(({ start_ms, end_ms }) => {
+			if (start_ms && end_ms) {
+				this.filterForm.patchValue({
+					startDate: new Date(start_ms),
+					endDate: new Date(end_ms),
+				})
+			}
+		})
 	}
 
 	onSubmit() {
@@ -49,6 +60,7 @@ export class FilterFormComponent {
 
 		const start_ms = new Date(startDate).getTime()
 		const end_ms = new Date(endDate).getTime()
+		this.store.dispatch(setDateRange({ start_ms, end_ms }))
 		this.store.dispatch(loadProductionData({ collection, start_ms, end_ms }))
 	}
 }
