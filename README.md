@@ -11,13 +11,13 @@ A comprehensive analytics platform designed to empower Oil & Gas Operators with 
 
 ### Mobile Views
 <div style="display: flex; justify-content: space-between; align-items: center;">
-    <div style="width: 45%;">
+    <div style="width: 45%; max-width: 200px;"> 
         <h4>📊 Dashboard</h4>
-        <img src="assets/images/dashboard-mobile.png" alt="Dashboard Mobile" style="padding-right:10px; max-width:200px">
+        <img src="assets/images/dashboard-mobile.png" alt="Dashboard Mobile">
     </div>
-    <div style="width: 45%;">
+    <div style="width: 45%; max-width: 200px;">
         <h4>🎛️ Filters</h4>
-        <img src="assets/images/dashboard-mobile-drawer.png" alt="Dashboard Mobile Drawer" style="padding-right:10px; max-width:200px">
+        <img src="assets/images/dashboard-mobile-drawer.png" alt="Dashboard Mobile Drawer">
     </div>
 </div>
 
