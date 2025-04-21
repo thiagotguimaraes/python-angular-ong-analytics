@@ -39,7 +39,7 @@ class TimescaleDBManager:
         try:
             # Handle mocked attributes or coroutines
             if callable(getattr(self.pool._queue, "qsize", None)):
-                available = await self.pool._queue.qsize()
+                available = self.pool._queue.qsize()
             else:
                 available = self.pool._queue.qsize() if hasattr(self.pool._queue, "qsize") else 0
 
