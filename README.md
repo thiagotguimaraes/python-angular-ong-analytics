@@ -10,7 +10,7 @@ A comprehensive analytics platform designed to empower Oil & Gas Operators with 
 ![Dashboard Desktop](assets/images/dashboard-desktop.png)
 
 ### Mobile Views
-<div style="display: flex;">
+<div style="display: flex; gap: 20px;">
     <!-- <div style="width: 45%; width:200px; margin-right:20px;">  -->
         <!-- <h4>📊 Dashboard</h4> -->
         <img src="assets/images/dashboard-mobile.png" alt="Dashboard Mobile"  width="200">
