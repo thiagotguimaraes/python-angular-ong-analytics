@@ -22,19 +22,18 @@ A comprehensive analytics platform designed to empower Oil & Gas Operators with 
 </div>
 
 ---
-
 ## 📚 Table of Contents
-1. [📖 Overview](#overview)
-2. [🛠️ Technologies Used](#technologies-used)
-3. [⚙️ Backend](#backend)
-   - [🏗️ Architecture](#architecture)
-   - [✨ Key Features](#key-features)
-4. [🎨 Frontend](#frontend)
-   - [🏗️ Architecture](#architecture-1)
-   - [✨ Key Features](#key-features-1)
-5. [🚀 Setup Instructions](#setup-instructions)
-6. [🤝 Contributing](#contributing)
-7. [📜 License](#license)
+1. [📖 Overview](#-overview)
+2. [🛠️ Technologies Used](#-technologies-used)
+3. [⚙️ Backend](#-backend)
+    - [🏗️ Architecture](#-architecture)
+    - [✨ Key Features](#-key-features)
+4. [🎨 Frontend](#-frontend)
+    - [🏗️ Architecture](#-architecture-1)
+    - [✨ Key Features](#-key-features-1)
+5. [🚀 Setup Instructions](#-setup-instructions)
+6. [🤝 Contributing](#-contributing)
+7. [📜 License](#-license)
 
 ---
 
