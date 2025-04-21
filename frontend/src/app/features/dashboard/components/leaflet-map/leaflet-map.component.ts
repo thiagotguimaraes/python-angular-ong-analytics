@@ -5,6 +5,7 @@ import { selectWell } from '../../../../state/selected-well/selected-well.action
 import { loadProductionData } from '../../../../state/production-data/production-data.actions'
 import { Well } from '../../../../models'
 import { selectSelectedWell } from '../../../../state/selected-well/selected-well.selectors'
+import { setDateRange } from '../../../../state/date-range/date-range.actions'
 
 delete (L.Icon.Default.prototype as any)._getIconUrl
 
@@ -65,6 +66,7 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges {
 				.on('click', () => {
 					console.log('Clicked well:', well.name)
 					this.store.dispatch(selectWell({ well }))
+					this.store.dispatch(setDateRange({ start_ms: well.start_ms, end_ms: well.end_ms }))
 					this.store.dispatch(
 						loadProductionData({
 							collection: well.collection,
