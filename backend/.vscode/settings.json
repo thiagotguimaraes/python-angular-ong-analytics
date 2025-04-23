@@ -1,0 +1,10 @@
+{
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true
+    },
+    "python.analysis.typeCheckingMode": "strict", // or "basic"
+    "python.analysis.diagnosticMode": "workspace", // or "workspace"
+    "python.defaultInterpreterPath": "./venv/bin/python" // adjust for your venv
+}

@@ -1,20 +1,6 @@
-[tool.black]
-line-length = 80
-target-version = ['py311']
-exclude = '''
-/(
-    user-service-env
-    | \.git
-    | \.mypy_cache
-    | \.pytest_cache
-    | \.tox
-    | \.nox
-    | dist
-    | build
-    | __pycache__
-)/
-'''
-
-[tool.isort]
-profile = "black"
-line_length = 80
+[tool.mypy]
+python_version = "3.10"
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_unused_ignores = true
+ignore_missing_imports = true
